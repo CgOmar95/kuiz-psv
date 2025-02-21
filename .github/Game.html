@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuiz PSV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+        }
+        .options button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Kuiz Pendidikan Seni Visual</h2>
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const quiz = [
+            { question: "Apakah warna primer dalam seni?", options: ["Merah, Biru, Kuning", "Hijau, Oren, Ungu", "Hitam, Putih, Kelabu"], answer: "Merah, Biru, Kuning" },
+            { question: "Garisan apakah yang menunjukkan pergerakan dan tenaga?", options: ["Garisan Lurus", "Garisan Beralun", "Garisan Putus-putus"], answer: "Garisan Beralun" },
+            { question: "Bentuk manakah yang bersifat organik?", options: ["Segi Empat", "Bulat", "Awan"], answer: "Awan" }
+        ];
+
+        let currentQuestion = 0;
+        function loadQuestion() {
+            document.getElementById('result').textContent = "";
+            if (currentQuestion < quiz.length) {
+                document.getElementById('question').textContent = quiz[currentQuestion].question;
+                let optionsHTML = "";
+                quiz[currentQuestion].options.forEach(option => {
+                    optionsHTML += `<button onclick="checkAnswer('${option}')">${option}</button>`;
+                });
+                document.getElementById('options').innerHTML = optionsHTML;
+            } else {
+                document.getElementById('question').textContent = "Tahniah! Anda telah menyelesaikan kuiz.";
+                document.getElementById('options').innerHTML = "";
+            }
+        }
+        
+        function checkAnswer(selected) {
+            if (selected === quiz[currentQuestion].answer) {
+                document.getElementById('result').textContent = "Betul!";
+                document.getElementById('result').style.color = "green";
+            } else {
+                document.getElementById('result').textContent = "Salah, cuba lagi!";
+                document.getElementById('result').style.color = "red";
+                return;
+            }
+            currentQuestion++;
+            setTimeout(loadQuestion, 1000);
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
